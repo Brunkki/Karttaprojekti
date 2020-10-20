@@ -3,6 +3,12 @@ var longitude = 0;
 var olet_tassa;
 var kartta;
 
+async function getData() {
+  const response = await fetch('/api/paikat');
+  const data = await response.json();
+  console.log(data);
+}
+
 if ("geolocation" in navigator) {
   console.log("Sijaintitieto saatavilla");
 
@@ -25,6 +31,7 @@ if ("geolocation" in navigator) {
     }).addTo(kartta);
 
     var marker = L.marker([latitude, longitude]).addTo(kartta);
+    getData();
 
 })
 } else {
