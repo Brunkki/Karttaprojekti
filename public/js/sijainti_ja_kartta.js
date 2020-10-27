@@ -7,6 +7,19 @@ async function getData() {
   const response = await fetch('/api/paikat');
   const data = await response.json();
   console.log(data);
+  tayta_paikkataulukko(data);
+}
+
+function tayta_paikkataulukko(data) {
+  var table = document.getElementById("paikkataulukko");
+
+  for (var i = 0; i < data.length; i++) {
+    var row = table.insertRow(i + 1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = data[i].paikka;
+    cell2.innerHTML = data[i].arvostelu;
+  }
 }
 
 if ("geolocation" in navigator) {
