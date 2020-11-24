@@ -1,9 +1,18 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
+const db = require('./queries')
 
 app.listen(3000, () => console.log("kuuntelen"));
 app.use(express.static("public"));
 app.use(express.json({limit: '1mb'}));
+
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+)
 
 const paikat = [
   {
@@ -20,12 +29,4 @@ const paikat = [
   }
 ]
 
-app.get('/api/paikat', function(request, response) {
-  response.send(paikat);
-})
-
-app.post('/api/arvostelu', function(request, response) {
-  console.log('Käyttäjän arvostelu');
-  console.log(request.body);
-  response.send(200);
-})
+app.get('/api/paikat', db.haePaikat);
